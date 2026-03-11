@@ -1,0 +1,77 @@
+classDiagram
+    direction TB
+
+    class Usuario {
+        <<abstract>>
+        - UUID id
+        - String nome
+        - String email
+        - String senhaHash
+        - String cpf
+        - LocalDateTime createdAt
+        - LocalDateTime updatedAt
+        # onCreate()
+        # onUpdate()
+    }
+
+    class Paciente {
+        - String telefone
+        - LocalDate dataNascimento
+        - boolean ativo
+    }
+
+    class Psicologo {
+        - String crp
+        - String especialidade
+        - boolean ativo
+        - List~Disponibilidade~ disponibilidades
+    }
+
+    class Disponibilidade {
+        - UUID id
+        - LocalDateTime inicio
+        - LocalDateTime fim
+        - StatusDisponibilidade status
+        - Psicologo psicologo
+    }
+
+    class Consulta {
+        - UUID id
+        - LocalDateTime inicio
+        - LocalDateTime fim
+        - String linkConsulta
+        - String plataformaLink
+        - StatusConsulta status
+        - Paciente paciente
+        - Psicologo psicologo
+        - Disponibilidade disponibilidade
+        - LocalDateTime createdAt
+        - LocalDateTime updatedAt
+        # onCreate()
+        # onUpdate()
+    }
+
+    class StatusConsulta {
+        <<enumeration>>
+        AGENDADA
+        CANCELADA
+        REALIZADA
+    }
+
+    class StatusDisponibilidade {
+        <<enumeration>>
+        DISPONIVEL
+        RESERVADA
+        INDISPONIVEL
+    }
+
+    Usuario <|-- Paciente
+    Usuario <|-- Psicologo
+
+    Psicologo "1" --> "0..*" Disponibilidade : possui
+    Paciente "1" --> "0..*" Consulta : agenda
+    Psicologo "1" --> "0..*" Consulta : atende
+    Consulta "1" --> "1" Disponibilidade : reserva
+
+    Consulta --> StatusConsulta
+    Disponibilidade --> StatusDisponibilidade
