@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.dignamente.saude.br.dto.Paciente.PacienteCreateDTO;
 import com.dignamente.saude.br.dto.Paciente.PacienteResponseDTO;
 import com.dignamente.saude.br.entities.Paciente;
+import com.dignamente.saude.br.exceptions.EmailAlreadyExists;
+import com.dignamente.saude.br.exceptions.EntityNotFound;
 import com.dignamente.saude.br.repository.PacienteRepository;
 
 @Service
@@ -30,13 +32,19 @@ public class PacienteService {
 
     public PacienteResponseDTO findPacienteByID(UUID id) {
         Paciente paciente = pacienteRepository.findById(id).
-        orElseThrow(() -> new RuntimeException("Paciente não econtrado com o id: " + id));
+        orElseThrow(() -> new EntityNotFound("Paciente não econtrado com o id: " + id));
         return toDto(paciente);
                              
         
     }
 
     public void createPaciente(PacienteCreateDTO dto) {
+
+        if(pacienteRepository.existsByEmail(dto.getEmail())) {
+            throw new EmailAlreadyExists("Já existe um paciente com o email: " + dto.getEmail());
+
+        }
+        
         Paciente paciente = new Paciente();
         paciente.setNome(dto.getNome());
         paciente.setEmail(dto.getEmail());   
@@ -54,6 +62,7 @@ public class PacienteService {
             
     }
 
+   
     private PacienteResponseDTO toDto(Paciente paciente) {
         return new PacienteResponseDTO(
             paciente.getId(),
@@ -66,5 +75,7 @@ public class PacienteService {
         
         );
     }
+
+    
     
 }

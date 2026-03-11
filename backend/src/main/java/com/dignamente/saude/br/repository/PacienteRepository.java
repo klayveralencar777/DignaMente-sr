@@ -9,5 +9,6 @@ import com.dignamente.saude.br.entities.Paciente;
 
 @Repository
 public interface PacienteRepository extends JpaRepository<Paciente, UUID> {
+    boolean existsByEmail(String email);
     
 }

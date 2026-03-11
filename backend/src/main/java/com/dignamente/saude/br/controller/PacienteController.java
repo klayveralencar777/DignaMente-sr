@@ -17,6 +17,8 @@ import com.dignamente.saude.br.dto.Paciente.PacienteCreateDTO;
 import com.dignamente.saude.br.dto.Paciente.PacienteResponseDTO;
 import com.dignamente.saude.br.service.PacienteService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/pacientes")
 public class PacienteController {
@@ -37,7 +39,7 @@ public class PacienteController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Void> createPaciente(@RequestBody PacienteCreateDTO pacienteDTO) {
+    public ResponseEntity<Void> createPaciente(@RequestBody  @Valid PacienteCreateDTO pacienteDTO) {
         pacienteService.createPaciente(pacienteDTO);
         return ResponseEntity.status(201).build();
     }
