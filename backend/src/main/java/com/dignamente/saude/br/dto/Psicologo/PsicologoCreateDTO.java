@@ -1,11 +1,8 @@
-package com.dignamente.saude.br.dto.Paciente;
-
-import java.time.LocalDate;
-import java.util.UUID;
+package com.dignamente.saude.br.dto.Psicologo;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,11 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-
-public class PacienteResponseDTO{
-    @NotNull(message = "Id é obrigatório.")
-    private UUID id;
-
+public class PsicologoCreateDTO {
     @NotBlank(message = "Nome é obrigatório.")
     private String nome;
 
@@ -26,19 +19,20 @@ public class PacienteResponseDTO{
     @Email(message = "Email inválido, tente outro.")
     private String email;
 
-    @NotNull(message = "Data de nascimento é obrigatória.")
-    private LocalDate dataNascimento;
-
-    @NotBlank(message = "Telefone é obrigatório.")
-    private String telefone;
+    @NotBlank(message = "Senha é obrigatória.")
+    private String senhaHash;
 
     @NotBlank(message = "CPF é obrigatório.")
     private String cpf;
     private boolean ativo;
 
-}
+    @NotBlank(message = "Telefone é obrigatório.")
+    private String telefone;
+
+    @NotBlank(message = "CRP é obrigatório.")
+    private String crp;
+
+    @NotBlank(message = "Especialidade é obrigatória.")
+    private String especialidade;
     
-
-     
-   
-
+}

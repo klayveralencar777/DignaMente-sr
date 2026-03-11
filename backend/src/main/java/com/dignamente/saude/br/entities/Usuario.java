@@ -53,6 +53,10 @@ public abstract class Usuario {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
+    @NotBlank(message = "Telefone é obrigatório.")
+    @Column(nullable = false)
+    private String telefone;
+
     @PrePersist
     protected void onCreate() {
         LocalDateTime now = LocalDateTime.now();

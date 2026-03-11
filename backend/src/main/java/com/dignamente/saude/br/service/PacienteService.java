@@ -44,7 +44,7 @@ public class PacienteService {
             throw new EmailAlreadyExists("Já existe um paciente com o email: " + dto.getEmail());
 
         }
-        
+
         Paciente paciente = new Paciente();
         paciente.setNome(dto.getNome());
         paciente.setEmail(dto.getEmail());   
@@ -53,13 +53,11 @@ public class PacienteService {
         paciente.setSenhaHash(senhaCriptografada);
         paciente.setCpf(dto.getCpf());
         paciente.setDataNascimento(dto.getDataNascimento());
-        paciente.setAtivo(dto.getAtivo());
+        paciente.setAtivo(dto.isAtivo());
         paciente.setTelefone(dto.getTelefone());
 
         pacienteRepository.saveAndFlush(paciente);
-        
- 
-            
+         
     }
 
    
