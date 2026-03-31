@@ -60,6 +60,7 @@ public class PacienteService {
          
     }
 
+
    
     private PacienteResponseDTO toDto(Paciente paciente) {
         return new PacienteResponseDTO(
@@ -73,7 +74,5 @@ public class PacienteService {
         
         );
     }
-
-    
-    
+  
 }

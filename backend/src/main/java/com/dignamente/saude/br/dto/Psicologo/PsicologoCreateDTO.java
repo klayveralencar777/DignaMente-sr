@@ -24,6 +24,8 @@ public class PsicologoCreateDTO {
 
     @NotBlank(message = "CPF é obrigatório.")
     private String cpf;
+
+    
     private boolean ativo;
 
     @NotBlank(message = "Telefone é obrigatório.")
